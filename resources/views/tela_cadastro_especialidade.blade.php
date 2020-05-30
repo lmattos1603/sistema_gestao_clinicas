@@ -20,7 +20,7 @@
                     <input type="text" class="form-control" name="descricao" required>
                 </div>
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-secondary">Cadastrar</button>
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
                 </div>
             </form>
         </div>

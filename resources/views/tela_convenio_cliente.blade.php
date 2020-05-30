@@ -20,7 +20,7 @@
                 </select>
             </div>
             <div class="col-md-6 ">
-                <button type="submit" class="btn btn-secondary">Cadastrar</button>
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
             </div>
         </form>
         <h2 class="mt-5">Convênios Adicionados</h2>

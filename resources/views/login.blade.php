@@ -22,7 +22,7 @@
                     <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" >
                 </div>
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-secondary">Entrar</button>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
                 </div>
             </form>
         </div>

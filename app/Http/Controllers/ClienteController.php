@@ -9,6 +9,9 @@ use App\Convenio;
 class ClienteController extends Controller
 {
     function telaLogin(){
+        if(session()->has('email')){
+            return redirect()->route('listar_cliente');
+        }
     	return view("login");
     }
 
@@ -27,10 +30,16 @@ class ClienteController extends Controller
             ];
             session($variavel);
 
-            return redirect()->route('listar');
+            return redirect()->route('listar_cliente');
         }else{
             return redirect()->route('login');
         }
+    }
+
+    function logout(){
+        session()->forget("email");
+
+        return redirect()->route('logar');
     }
 
     function telaListar(){
@@ -63,8 +72,7 @@ class ClienteController extends Controller
 
         if($cliente->save()){
             $msg = "Cliente $nome adicionado com sucesso!";
-            $_SESSION['adicionado'] = "Adicionado!";
-            return redirect()->route('cadastro_convenio', [ "id" => $cliente->id ]);
+            return redirect()->route('logar');
         }else{
             $msg = "Cliente não foi adicionado!";
             return view("tela_cadastro", ["mensagem" => $msg]);

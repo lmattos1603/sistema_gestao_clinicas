@@ -34,12 +34,20 @@ class AgendaController extends Controller
         $agenda->data = $data;
         $agenda->hora = $hora;
 
-        if($agenda->save()){
-            $msg = "Agenda adicionada com sucesso!";
-            $_SESSION['adicionado'] = "Adicionada!";
-            return redirect()->route('agenda_cadastro');
+        if(strtotime($data) > strtotime(date('d-m-Y'))){
+            if($agenda->save()){
+                $msg = "Agenda adicionada com sucesso!";
+                $_SESSION['adicionado'] = "Adicionada!";
+                return redirect()->route('agenda_cadastro');
+            }else{
+                $msg = "Cliente não foi adicionado!";
+            }
         }else{
-            $msg = "Cliente não foi adicionado!";
+            $cliente = Cliente::all();
+            $profissional = Profissional::all();
+            $mensagem = "Por favor, Insira uma data a partir da data atual!";
+
+            return view("tela_cadastro_agenda", [ 'clientes' => $cliente, 'profissionais' => $profissional, 'mensagem' => $mensagem]);
         }
     }
 }
