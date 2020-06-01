@@ -3,57 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Convenios;
+use App\Convenio;
 
 class ConvenioController extends Controller
 {
-    function telaCadastro(){
-		return view("tela_cadastro_convenio");
-	}
-	function incluir(Request $req){
-		$nome = $req->input("nome");
-		$telefone = $req->input("telefone");
-		
-		$convenio = new Convenios();
-		$convenio->nome = $nome;
-		$convenio->telefone = $telefone;
-		
+    function telaListar(){
+    	$convenio = Convenio::all();
 
-		if($convenio->save()){
-			$retorno =  TRUE;
-		}else{
-			throw new\Exception("Nao foi possivel incluir");
-			die;
-		}
-		return redirect()->route('convenio_listar', ["mensagem"=>$retorno]);
-	}
-	function alterar(Request $req, $id){
-        $convenio = Convenios::find($id);
-
-        $nome = $req->input("nome");
-		$telefone = $req->input("telefone");
-		
-		$convenio = new Convenios();
-		$convenio->nome = $nome;
-		$convenio->telefone = $telefone;
-
-        if ($convenio->save()){
-            $msg = "Convenio $nome alterado com sucesso.";
-        } else {
-            $msg = "Convenio não foi alterado.";
-        }
-
-        return view("resultado", [ "mensagem" => $msg]);
+    	return view("tela_listar_convenio", [ "convenios" => $convenio ]);
     }
-    function telaAlteracao($id){
-		$convenio = Convenios::find($id);
-		return view("tela_alteracao_convenio", ["c" => $convenio]);
-	}
-	function listar(){
-			$convenio = Convenios::all();/*coletar todos os clientes*/
-			return view("lista_convenio", ["convenio" => $convenio]);
-		
-		//return view("tela_login");
-	}
+
+    function telaCadastro(){
+    	return view("tela_cadastro_convenio");
+    }
+
+    function convenioAdd(Request $req){
+    	$nome = $req->input('nome');
+        $telefone = $req->input('telefone');
+
+        $convenio = new Convenio();
+        $convenio->nome = $nome;
+        $convenio->telefone = $telefone;
+
+        if($convenio->save()){
+            $msg = "convenio $nome adicionado com sucesso!";
+            $_SESSION['adicionado'] = "Adicionado!";
+            return view("tela_cadastro_convenio", ["mensagem" => $msg]);
+        }else{
+            $msg = "convenio não foi adicionado!";
+            return view("tela_cadastro", ["mensagem" => $msg]);
+        }
+    }
 }
-?>

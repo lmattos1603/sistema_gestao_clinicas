@@ -13,28 +13,66 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+
+    
 });
-	/*Clientes*/
-	Route::get('/cliente/cadastro', 'ClienteController@telaCadastro')->name('cliente_cadastro');
-	Route::post('/cliente/incluir', 'ClienteController@incluir')->name('cliente_add');
-	Route::get("/cliente/alterar/{id}", "ClienteController@telaAlteracao")->name('cliente_tela_alterar');
-	Route::post("/cliente/alterar/{id}", "ClienteController@alterar")->name('cliente_alterar');
-	Route::get('/cliente/excluir/{id}', "ClienteController@excluir")->name('cliente_delete');
+Route::get('/logout', 'ClienteController@logout')->name('logout');
 
-/*Rotas para tela cadastro*/
-Route::get('/convenio/cadastro', 'ConvenioController@telaCadastro')->name('convenio_cadastro');
-Route::get('/especialidade/cadastro', 'EspecialidadeController@telaCadastro')->name('especialidade_cadastro');
-Route::get('/profissional/cadastro', 'ProfissionalController@telaCadastro')->name('profissional_cadastro');
+	Route::get('/cliente/listar', 'ClienteController@telaListar')->name('listar_cliente');
 
-/*Rotas para inclusao*/
-	Route::post('/convenio/cadastro', 'ConvenioController@incluir')->name('convenio_add');
-	Route::post('/especialidade/cadastro', 'EspecialidadeController@incluir')->name('especialidade_add');
-	Route::post('/profissional/cadastro', 'ProfissionalController@incluir')->name('profissional_add');
-	
-/*Rotas para alteração*/
-	Route::get("/convenio/alterar/{id}", "ConvenioController@telaAlteracao")->name('convenio_tela_alterar');
-	Route::get("/especialidade/alterar/{id}", "EspecialidadeController@telaAlteracao")->name('especialidade_tela_alterar');
-	Route::get("/profissional/alterar/{id}", "ProfissionalController@telaAlteracao")->name('profissional_tela_alterar');
-?>
+	Route::get('/cliente/{id}/convenios', 'ClienteController@telaAdicionarConvenio')->name('cadastro_convenio');
+
+	Route::post('/cliente/{id}/adicionar_convenio', 'ClienteController@adicionarConvenio')->name('add_convenios');
+
+	/*Convenio*/
+
+	Route::get('/convenio/cadastro', 'ConvenioController@telaCadastro')->name('cadastrar_convenio');
+
+	Route::post('/convenio/adicionar', 'ConvenioController@convenioAdd')->name('convenio_add');
+
+	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
+
+	/*Profissionais*/
+
+	Route::get('/profissional/cadastro', 'ProfissionalController@telaCadastro')->name('cadastro_profissional');
+
+	Route::post('/profissional/adicionar', 'ProfissionalController@profissionalAdd')->name('profissional_add');
+
+	Route::get('/profissional/listar', 'ProfissionalController@telaListar')->name('listar_profissional');
+
+	Route::get('/profissional/{id}/especialidades', 'ProfissionalController@telaAdicionarEspecialidade')->name('cadastro_especialidade');
+
+	Route::post('/profissional/{id}/adicionar_especialidade', 'ProfissionalController@adicionarEspecialidade')->name('add_especialidades');
+
+
+	/*Especialidade*/
+
+	Route::get('/especialidade/cadastro', 'EspecialidadeController@telaCadastro')->name('cadastrar_especialidade');
+
+	Route::post('/especialidade/adicionar', 'EspecialidadeController@especialidadeAdd')->name('especialidade_add');
+
+	Route::get('/especialidade/listar', 'EspecialidadeController@telaListar')->name('listar_especialidade');
+
+	/*Agenda*/
+
+	Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
+
+	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
+
+	Route::get('/agenda/listar', 'AgendaController@telaListar')->name('listar_agenda');
+
+/*Login*/
+Route::get('/', function(){
+	return view("welcome");
+});
+
+Route::get('/logar', 'ClienteController@telaLogin')->name('logar');
+
+Route::post('/login', 'ClienteController@logar')->name('login');
+
+/*Cadastro Cliente*/
+Route::get('/cliente/cadastro', 'ClienteController@telaCadastro')->name('cadastro_cliente');
+
+Route::post('/cliente/adicionar', 'ClienteController@clienteAdd')->name('cliente_add');
+

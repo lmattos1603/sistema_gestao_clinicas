@@ -1,13 +1,27 @@
-@extends ('template')
-@section('conteudo')
+@extends('template')
 
-<h1>Cadastro de Especialidade</h1>
-<form method="POST" action="{{ route('especialidade_add') }}">
-	@csrf
-	<h6>Nome</h6>
-	<input type="text" name="nome" placeholder="Psicólogo">
-	<h6 class="mt-2">Descrição</h6>
-	<input type="text" name="descricao" placeholder="Psico-análise">
-	<input type="submit" class="btn btn-secondary btn-lg mt-3" value="Cadastrar" class=>
-</form>	
+@section('conteudo')       
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-dark bg-dark">
+                        <h4 style="color: white;">Cadastro de Especialidades</h4>
+                    </nav>
+                </div>
+            </div>
+            <form method="post" action="{{ route('especialidade_add') }}">
+                @csrf
+                <div class="form-group mt-5">
+                    <h6>Nome</h6>
+                    <input type="text" class="form-control" name="nome" placeholder="Nome Especialidade" required>
+                </div>
+                <div class="form-group">
+                    <h6>Descrição</h6>
+                    <input type="text" class="form-control" name="descricao" required>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </div>
+            </form>
+        </div>
 @endsection

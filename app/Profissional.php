@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profissional extends Model
 {
-    protected $table = "profissionais";
-    protected $primaryKey = "id";
+    protected $table = 'profissionais';
+    protected $primaryKey = 'id';
 
+    function especialidades(){
+        return $this->belongsToMany('App\Especialidade', 'especialidades_profissionais', 'id_profissional', 'id_especialidade')->withPivot(['id'])->withTimestamps();
+    }
 
-    function especialidade(){
-    	return $this->belongsToMany('App\Especialidade', 'id_especialidade', 'id');
+    function agenda(){
+        return $this->hasMany('App\Agenda', 'id_agenda', 'id');
     }
 }

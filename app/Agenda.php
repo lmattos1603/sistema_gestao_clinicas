@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agenda extends Model
 {
-   	protected $table = "agendas";
-   	protected $primaryKey = "id";
+    protected $table = 'agenda';
+    protected $primaryKey = 'id';
 
-    function profissional(){
-    	return $this->belongsToMany('App\Profissional', 'id_profissional', 'id');
+    function clientes(){
+        return $this->belongsTo('App\Cliente', 'id_cliente', 'id');
     }
-    function cliente(){
-    	return $this->belongsToMany('App\Cliente', 'id_cliente', 'id');
+
+    function profissionais(){
+        return $this->belongsTo('App\Profissional', 'id_profissional', 'id');
     }
 }
