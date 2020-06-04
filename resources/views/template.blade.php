@@ -8,17 +8,17 @@
     <body style=" background-image: url(https://medicalbox.com.br/blog/wp-content/uploads/2018/01/como-implementar-um-software-de-gestao-em-sua-clinica.jpeg);">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         
-        <a class="navbar-brand" href="#">Gestão de Clínicas</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar navbar-nav">
                 <?php
-                    if(session()->has("email")){
+                    if(Auth::user()){
                 ?>
                 <li class="nav-item">
-                   <a class="nav-link" href="#">Olá, {{ session("nome") }}</a>
+                   <a class="nav-link disabled" href="#">Olá, {{ Auth::user()->name }}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,24 +61,20 @@
                       Agendas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ route('agenda_cadastro') }}">Cadastrar Agenda</a>
+                      <a class="dropdown-item" href="{{ route('agenda_cadastro') }}">Cadastrar Consulta</a>
                       <a class="dropdown-item" href="{{ route('listar_agenda') }}">Listar Agendas</a>
                     </div>
                 </li>
-                    <a class="nav-link ml-5" href="{{ route('logout') }}">Logout</a>
-                <?php
-                    }else{
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cadastro_cliente') }}">Cadastre-se</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logar') }}">Login</a>
-                </li>
-                <?php
-                    }
-                ?>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a class="nav-link " href="{{ route('logout') }}">Logout</a>
+              </li>
+            </ul>
+            <?php
+                }
+            ?>
+            
         </div>
     </nav>
         <div class="container">

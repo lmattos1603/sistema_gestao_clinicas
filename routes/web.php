@@ -15,63 +15,72 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/logout', 'ClienteController@logout')->name('logout');
+	Route::middleware(['cliente'])->group(function (){
 
-	Route::get('/cliente/listar', 'ClienteController@telaListar')->name('listar_cliente');
+		
+	});
 
-	Route::get('/cliente/{id}/convenios', 'ClienteController@telaAdicionarConvenio')->name('cadastro_convenio');
+	Route::middleware(['profissional'])->group(function (){
+		/*Cadastro Cliente*/
+		Route::get('/cliente/cadastro', 'ClienteController@telaCadastro')->name('cadastro_cliente');
 
-	Route::post('/cliente/{id}/adicionar_convenio', 'ClienteController@adicionarConvenio')->name('add_convenios');
+		Route::post('/cliente/adicionar', 'ClienteController@clienteAdd')->name('cliente_add');
+
+		Route::get('/cliente/{id}/convenios', 'ClienteController@telaAdicionarConvenio')->name('cadastro_convenio');
+
+		Route::post('/cliente/{id}/adicionar_convenio', 'ClienteController@adicionarConvenio')->name('add_convenios');
+
+		/*Convenio*/
+		Route::get('/convenio/cadastro', 'ConvenioController@telaCadastro')->name('cadastrar_convenio');
+
+		Route::post('/convenio/adicionar', 'ConvenioController@convenioAdd')->name('convenio_add');
+
+		/*Profissional*/
+		Route::get('/profissional/cadastro', 'ProfissionalController@telaCadastro')->name('cadastro_profissional');
+
+		Route::post('/profissional/adicionar', 'ProfissionalController@profissionalAdd')->name('profissional_add');
+
+		Route::get('/profissional/{id}/especialidades', 'ProfissionalController@telaAdicionarEspecialidade')->name('cadastro_especialidade');
+
+		Route::post('/profissional/{id}/adicionar_especialidade', 'ProfissionalController@adicionarEspecialidade')->name('add_especialidades');
+
+		/*Especialidade*/
+		Route::get('/especialidade/cadastro', 'EspecialidadeController@telaCadastro')->name('cadastrar_especialidade');
+
+		Route::post('/especialidade/adicionar', 'EspecialidadeController@especialidadeAdd')->name('especialidade_add');
+
+		/*Agenda*/
+		Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
+
+		Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
+	});
+
+	/*Cliente*/
+	Route::get('/cliente/listar', 'ClienteController@telaListar')->name('listar_cliente');	
 
 	/*Convenio*/
-
-	Route::get('/convenio/cadastro', 'ConvenioController@telaCadastro')->name('cadastrar_convenio');
-
-	Route::post('/convenio/adicionar', 'ConvenioController@convenioAdd')->name('convenio_add');
-
 	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
 
 	/*Profissionais*/
-
-	Route::get('/profissional/cadastro', 'ProfissionalController@telaCadastro')->name('cadastro_profissional');
-
-	Route::post('/profissional/adicionar', 'ProfissionalController@profissionalAdd')->name('profissional_add');
-
 	Route::get('/profissional/listar', 'ProfissionalController@telaListar')->name('listar_profissional');
 
-	Route::get('/profissional/{id}/especialidades', 'ProfissionalController@telaAdicionarEspecialidade')->name('cadastro_especialidade');
-
-	Route::post('/profissional/{id}/adicionar_especialidade', 'ProfissionalController@adicionarEspecialidade')->name('add_especialidades');
-
-
 	/*Especialidade*/
-
-	Route::get('/especialidade/cadastro', 'EspecialidadeController@telaCadastro')->name('cadastrar_especialidade');
-
-	Route::post('/especialidade/adicionar', 'EspecialidadeController@especialidadeAdd')->name('especialidade_add');
-
 	Route::get('/especialidade/listar', 'EspecialidadeController@telaListar')->name('listar_especialidade');
 
 	/*Agenda*/
-
-	Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
-
-	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
-
 	Route::get('/agenda/listar', 'AgendaController@telaListar')->name('listar_agenda');
+
+	Route::get('/logout', 'ClienteController@logout')->name('logout');
 
 });
 
 /*Login*/
 Route::get('/', function(){
 	return view("welcome");
-});
+})->name('home');
 
 Route::get('/logar', 'ClienteController@telaLogin')->name('logar');
 
-Route::post('/login', 'ClienteController@logar')->name('login');
+Auth::routes();
 
-/*Cadastro Cliente*/
-Route::get('/cliente/cadastro', 'ClienteController@telaCadastro')->name('cadastro_cliente');
-
-Route::post('/cliente/adicionar', 'ClienteController@clienteAdd')->name('cliente_add');
+Route::get('/home', 'HomeController@index');

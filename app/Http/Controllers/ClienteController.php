@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cliente;
 use App\Convenio;
+use Auth;
 
 class ClienteController extends Controller
 {
@@ -12,32 +13,11 @@ class ClienteController extends Controller
         if(session()->has('email')){
             return redirect()->route('listar_cliente');
         }
-    	return view("login");
-    }
-
-    function logar(Request $req){
-        $cliente = Cliente::all();
-
-        $email = $req->input('email');
-        $senha = $req->input('senha');
-
-        $cliente = Cliente::where('email', '=', $email)->first();
-
-        if($cliente and $cliente->senha == $senha){
-            $variavel = [ 
-                "email" => $email,
-                "nome" => $cliente->nome 
-            ];
-            session($variavel);
-
-            return redirect()->route('listar_cliente');
-        }else{
-            return redirect()->route('login');
-        }
+    	return view('auth.login');
     }
 
     function logout(){
-        session()->forget("email");
+        Auth::logout();
 
         return redirect()->route('logar');
     }
@@ -58,8 +38,6 @@ class ClienteController extends Controller
         $rg = $req->input('rg');
         $nascimento = $req->input('nascimento');
         $telefone = $req->input('telefone');
-        $email = $req->input('email');
-        $senha = $req->input('senha');
 
         $cliente = new Cliente();
         $cliente->nome = $nome;
@@ -67,12 +45,10 @@ class ClienteController extends Controller
         $cliente->rg = $rg;
         $cliente->nascimento = $nascimento;
         $cliente->telefone = $telefone;
-        $cliente->email = $email;
-        $cliente->senha = $senha;
 
         if($cliente->save()){
             $msg = "Cliente $nome adicionado com sucesso!";
-            return redirect()->route('logar');
+            return redirect()->route('listar_cliente');
         }else{
             $msg = "Cliente não foi adicionado!";
             return view("tela_cadastro", ["mensagem" => $msg]);
