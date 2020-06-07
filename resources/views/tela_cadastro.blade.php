@@ -31,6 +31,14 @@
                     <h6>Telefone</h6>
                     <input type="text" class="form-control" name="telefone" placeholder="Telefone para Contato" required>
                 </div>
+                <div class="form-group">
+                    <h6>E-mail</h6>
+                    <input type="email" class="form-control" name="email" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <h6>Senha</h6>
+                    <input type="password" class="form-control" name="senha" placeholder="Sua senha" required>
+                </div>
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-dark">Cadastrar</button>
                 </div>

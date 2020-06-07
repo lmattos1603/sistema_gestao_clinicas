@@ -17,6 +17,9 @@ class Profissional
     public function handle($request, Closure $next)
     {
         if(! Auth::user()->ehProfissional()){
+            session([
+                'mensagem' => 'Você não tem permissão para realizar essa tarefa!'
+            ]);
             return back();
         }
 

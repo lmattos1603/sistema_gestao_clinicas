@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ExclusaoLogicaUsers extends Migration
+class ExclusaoLogicaAgendas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class ExclusaoLogicaUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-            
+        Schema::table('agenda', function(Blueprint $table){
             $table->softDeletes();
-
-            $table->integer('tipo');
-            $table->integer('id_cliente');
         });
     }
 
@@ -29,12 +25,8 @@ class ExclusaoLogicaUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table){
-            
+        Schema::table('agenda', function(Blueprint $table){
             $table->dropSoftDeletes();
-
-            $table->dropColumn('tipo');
-            $table->dropColumn('id_cliente');
         });
     }
 }

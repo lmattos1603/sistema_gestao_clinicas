@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Cliente;
 use App\Convenio;
+use App\User;
 use Auth;
 
 class ClienteController extends Controller
@@ -22,10 +24,22 @@ class ClienteController extends Controller
         return redirect()->route('logar');
     }
 
-    function telaListar(){
-    	$cliente = Cliente::all();
+    function telaListarDados(){
+    	$clientes = Cliente::all();
 
-    	return view("tela_listar", [ "clientes" => $cliente ]);
+        foreach ($clientes as $cli) {
+            if(Auth::user()->id_cliente == $cli->id){
+                $cliente = $cli;
+            }
+        }
+
+    	return view("tela_listar", [ "cli" => $cliente ]);
+    }
+
+    function telaListar(){
+        $cliente = Cliente::all();
+
+        return view("tela_lista_clientes", [ "clientes" => $cliente ]);
     }
 
     function telaCadastro(){
@@ -38,6 +52,8 @@ class ClienteController extends Controller
         $rg = $req->input('rg');
         $nascimento = $req->input('nascimento');
         $telefone = $req->input('telefone');
+        $email = $req->input('email');
+        $senha = $req->input('senha');
 
         $cliente = new Cliente();
         $cliente->nome = $nome;
@@ -46,13 +62,18 @@ class ClienteController extends Controller
         $cliente->nascimento = $nascimento;
         $cliente->telefone = $telefone;
 
-        if($cliente->save()){
-            $msg = "Cliente $nome adicionado com sucesso!";
-            return redirect()->route('listar_cliente');
-        }else{
-            $msg = "Cliente não foi adicionado!";
-            return view("tela_cadastro", ["mensagem" => $msg]);
-        }
+        $cliente->save();
+
+        $user = new User();
+        $user->name = $nome;
+        $user->email = $email;
+        $user->password = Hash::make($senha);
+        $user->tipo = 0;
+        $user->id_cliente = $cliente->id;
+
+        $user->save();
+
+        return redirect()->route('listar_clientes');
     }
 
     function telaAdicionarConvenio($id){

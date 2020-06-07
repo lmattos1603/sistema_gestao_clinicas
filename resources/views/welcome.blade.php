@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ route('listar_cliente') }}">Painel do Sistema</a>
+                        <a href="{{ route('listar_agenda') }}">Painel do Sistema</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 

@@ -18,7 +18,8 @@
                 <td>{{ $prof->cpf }}</td>
                 <td>{{ $prof->rg }}</td>
                 <td>{{ $prof->nascimento }}</td>
-                <td><a href="{{ route('cadastro_especialidade', ['id' => $prof->id]) }}" class="btn btn-info">Especialidades</a></td>
+                <td><a href="{{ route('cadastro_especialidade', ['id' => $prof->id]) }}" class="btn btn-info">Especialidades</a>
+                    <a href="{{ route('listar_agenda_prof', ['id' => $prof->id]) }}" class="btn btn-success">Agenda</a></td>
             </tr>
             @endforeach
             </tbody>

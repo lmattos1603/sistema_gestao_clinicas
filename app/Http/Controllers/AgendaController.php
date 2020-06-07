@@ -13,12 +13,18 @@ class AgendaController extends Controller
     function telaListar(){
     	$agenda = Agenda::all();
 
-        return view("teste", [ 'agenda' => $agenda ]);    	
+        return view("teste", [ 'agenda' => $agenda ]);   	
     }
 
-    function telaListarCli(){
+    function telaLista(){
+        $agenda = Agenda::all();
+
+        return view("tela_listar_agenda", [ 'agenda' => $agenda ]);      
+    }
+
+    function telaListarCli($id){
         $ag = Agenda::all();
-        $cliente = Cliente::find(1);
+        $cliente = Cliente::find($id);
         $agenda = array();
         $i=0;
 
@@ -31,9 +37,9 @@ class AgendaController extends Controller
         return view("teste", [ 'agenda' => $agenda ]);      
     }
 
-    function telaListarProf(){
+    function telaListarProf($id){
         $ag = Agenda::all();
-        $profissional = Profissional::find(1);
+        $profissional = Profissional::find($id);
         $agenda = array();
         $i=0;
 
@@ -54,7 +60,7 @@ class AgendaController extends Controller
     }
 
     function agendaAdd(Request $req){
-    	$id_cliente = $req->input('id_cliente');
+        $id_cliente = $req->input('id_cliente');
         $id_profissional = $req->input('id_profissional');
         $data = $req->input('data');
         $hora = $req->input('hora');
@@ -68,11 +74,51 @@ class AgendaController extends Controller
         if($agenda->save()){
 
             $msg = "Agenda adicionada com sucesso!";
-            $_SESSION['adicionado'] = "Adicionada!";
             return redirect()->route('listar_agenda');
         
         }else{
-            $msg = "Cliente não foi adicionado!";
+            $msg = "Agenda não foi adicionada!";
+        }
+    }
+
+    function telaAlterar($id){
+        $agenda = Agenda::find($id);
+        $cliente = $agenda->clientes;
+        $profissional = $agenda->profissionais;
+
+        return view("tela_alterar_agenda", [ 'agenda' => $agenda, 'c' => $cliente, 'p' => $profissional ]);      
+    }
+
+    function alterar(Request $req, $id){
+        $id_cliente = $req->input('id_cliente');
+        $id_profissional = $req->input('id_profissional');
+        $data = $req->input('data');
+        $hora = $req->input('hora');
+
+        $agenda = Agenda::find($id);
+        $agenda->data = $data;
+        $agenda->hora = $hora;
+        $agenda->id_cliente = $id_cliente;
+        $agenda->id_profissional = $id_profissional;
+        
+        if($agenda->save()){
+
+            $msg = "Agenda alterada com sucesso!";
+            return redirect()->route('lista_agenda');
+        
+        }else{
+            $msg = "Agenda não foi alterada!";
+        }
+    }
+
+    function delete($id){
+        $agenda = Agenda::find($id);
+
+        if($agenda->delete()){
+            $msg = "Agenda excluída com sucesso!";
+            return redirect()->route('lista_agenda');
+        }else{
+            $msg = "Agenda não foi excluído!";
         }
     }
 }

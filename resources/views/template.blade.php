@@ -17,19 +17,17 @@
                 <?php
                     if(Auth::user()){
                 ?>
-                <li class="nav-item">
-                   <a class="nav-link disabled" href="#">Olá, {{ Auth::user()->name }}</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Cliente
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{{ route('cadastro_cliente') }}">Cadastrar Cliente</a>
-                      <a class="dropdown-item" href="{{ route('listar_cliente') }}">Listar Clientes</a>
+                      <a class="dropdown-item" href="{{ route('listar_clientes') }}">Listar Clientes</a>
+                      <a class="dropdown-item" href="{{ route('listar_cliente') }}">Meus Dados</a>
                     </div>
                   </li>
-                  <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Convênios
                     </a>
@@ -38,7 +36,7 @@
                       <a class="dropdown-item" href="{{ route('listar_convenio') }}">Listar Convênios</a>
                     </div>
                   </li>
-                  <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Profissional
                     </a>
@@ -62,8 +60,12 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{{ route('agenda_cadastro') }}">Cadastrar Consulta</a>
-                      <a class="dropdown-item" href="{{ route('listar_agenda') }}">Listar Agendas</a>
+                      <a class="dropdown-item" href="{{ route('listar_agenda') }}">Calendário de Consultas</a>
+                      <a class="dropdown-item" href="{{ route('lista_agenda') }}">Listar Agendas</a>
                     </div>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link disabled" >Olá, {{ Auth::user()->name }}</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -81,7 +83,12 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10" style="background-color: #ede4e4;">
-                    @yield('conteudo')
+                  @if(session()->has('mensagem'))
+                    <div class="alert alert-danger">{{session('mensagem')}}</div>
+                    {{ session()->forget(['mensagem']) }}
+                  @endif
+
+                  @yield('conteudo')
                 </div>
                 <div class="col-md-1"></div>
             </div>
