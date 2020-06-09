@@ -106,7 +106,15 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   
+@if(session()->has('msg'))
+  <div class="alert alert-warning">{{session('msg')}}</div>
+  {{ session()->forget(['msg']) }}
+@endif
 
+@if(session()->has('m'))
+  <div class="alert alert-success">{{session('m')}}</div>
+  {{ session()->forget(['m']) }}
+@endif
 
 <div class="container theme-showcase">
   <h1>Agenda</h1>

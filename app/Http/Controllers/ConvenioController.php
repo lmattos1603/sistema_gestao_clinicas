@@ -34,4 +34,39 @@ class ConvenioController extends Controller
             return view("tela_cadastro", ["mensagem" => $msg]);
         }
     }
+
+    function telaAlteracao($id){
+        $convenio = Convenio::find($id);
+        
+        return view("tela_alteracao_convenio", [ "c" => $convenio ]);
+    }
+
+    function alterar(Request $req, $id){
+        $convenio = Convenio::find($id);
+        $nome = $req->input('nome');
+        $telefone = $req->input('telefone');
+
+        
+        $convenio->nome = $nome;
+        $convenio->telefone = $telefone;
+
+        if($convenio->save()){
+            $msg = "Convenio $nome adicionado com sucesso!";
+            return redirect()->route('listar_convenio');
+        }else{
+            $msg = "convenio não foi adicionado!";
+            return view("tela_cadastro", ["mensagem" => $msg]);
+        }
+    }
+
+    function delete($id){
+        $convenio = Convenio::find($id);
+
+        if($convenio->delete()){
+            $msg = "Convenio excluída com sucesso!";
+            return redirect()->route('listar_convenio');
+        }else{
+            $msg = "Convenio não foi excluído!";
+        }
+    }
 }

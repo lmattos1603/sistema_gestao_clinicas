@@ -82,7 +82,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-10" style="background-color: #ede4e4;">
+                <div class="col-md-12" style="background-color: #ede4e4;">
                   @if(session()->has('mensagem'))
                     <div class="alert alert-danger">{{session('mensagem')}}</div>
                     {{ session()->forget(['mensagem']) }}

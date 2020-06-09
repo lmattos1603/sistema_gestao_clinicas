@@ -25,49 +25,35 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::post('/cliente/adicionar', 'ClienteController@clienteAdd')->name('cliente_add');
 
-		Route::get('/cliente/lista', 'ClienteController@telaListar')->name('listar_clientes');
+		Route::post('/cliente/{id}/adicionar_convenio', 'ClienteController@adicionarConvenio')->name('add_convenios');
 
-		Route::get('/cliente/excluir/{id}', 'ClienteController@delete');
+		Route::get('/cliente/lista', 'ClienteController@telaListar')->name('listar_clientes');
 
 		/*Convenio*/
 		Route::get('/convenio/cadastro', 'ConvenioController@telaCadastro')->name('cadastrar_convenio');
 
 		Route::post('/convenio/adicionar', 'ConvenioController@convenioAdd')->name('convenio_add');
 
-		Route::get('/convenio/alterar/{id}', 'ConvenioController@telaAlteracao')->name('convenio_update');
-
-		Route::post('/convenio/alterar/{id}', 'ConvenioController@alterar')->name('convenio_alterar');
-
-		Route::get('/convenio/excluir/{id}', 'ConvenioController@delete');
-
 		/*Profissional*/
 		Route::get('/profissional/cadastro', 'ProfissionalController@telaCadastro')->name('cadastro_profissional');
 
 		Route::post('/profissional/adicionar', 'ProfissionalController@profissionalAdd')->name('profissional_add');
 
+		Route::get('/profissional/{id}/especialidades', 'ProfissionalController@telaAdicionarEspecialidade')->name('cadastro_especialidade');
+
 		Route::post('/profissional/{id}/adicionar_especialidade', 'ProfissionalController@adicionarEspecialidade')->name('add_especialidades');
-
-		Route::get('/profissional/alterar/{id}', 'ProfissionalController@telaAlteracao')->name('profissional_update');
-
-		Route::post('/profissional/alterar/{id}', 'ProfissionalController@alterar')->name('profissional_alterar');	
-
-		Route::get('/profissional/excluir/{id}', 'ProfissionalController@delete');
 
 		/*Especialidade*/
 		Route::get('/especialidade/cadastro', 'EspecialidadeController@telaCadastro')->name('cadastrar_especialidade');
 
 		Route::post('/especialidade/adicionar', 'EspecialidadeController@especialidadeAdd')->name('especialidade_add');
 
-		Route::get('/especialidade/alterar/{id}', 'EspecialidadeController@telaAlteracao')->name('especialidade_update');
-
-		Route::post('/especialidade/alterar/{id}', 'EspecialidadeController@alterar')->name('especialidade_alterar');
-
-		Route::get('/especialidade/excluir/{id}', 'EspecialidadeController@delete');
-
 		/*Agenda*/
 		Route::get('/agenda/lista', 'AgendaController@telaLista')->name('lista_agenda');
 
-		
+		Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
+
+		Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
 
 		Route::get('/agenda/{id}/buscar', 'AgendaController@telaAlterar')->name('tela_alterar');
 
@@ -77,13 +63,7 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	/*Cliente*/
-	Route::get('/cliente/listar', 'ClienteController@telaListarDados')->name('listar_cliente');
-
-	Route::post('/cliente/{id}/adicionar_convenio', 'ClienteController@adicionarConvenio')->name('add_convenios');
-
-	Route::get('/cliente/alterar/{id}', 'ClienteController@telaAlteracao')->name('cliente_update');
-
-	Route::post('/cliente/alterar/{id}', 'ClienteController@alterar')->name('cliente_alterar');
+	Route::get('/cliente/listar', 'ClienteController@telaListarDados')->name('listar_cliente');	
 
 	/*Convenio*/
 	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
@@ -92,8 +72,6 @@ Route::middleware(['auth'])->group(function () {
 
 	/*Profissionais*/
 	Route::get('/profissional/listar', 'ProfissionalController@telaListar')->name('listar_profissional');
-
-	Route::get('/profissional/{id}/especialidades', 'ProfissionalController@telaAdicionarEspecialidade')->name('cadastro_especialidade');
 
 	/*Especialidade*/
 	Route::get('/especialidade/listar', 'EspecialidadeController@telaListar')->name('listar_especialidade');
@@ -105,11 +83,6 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/agenda/{id}/listar', 'AgendaController@telaListarProf')->name('listar_agenda_prof');
 
-	Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
-
-	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
-
-	/*Sair*/
 	Route::get('/logout', 'ClienteController@logout')->name('logout');
 
 });

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Agenda;
 use App\Cliente;
 use App\Profissional;
+use App\Especialidade;
 use App\User;
 
 class AgendaController extends Controller
@@ -13,7 +14,7 @@ class AgendaController extends Controller
     function telaListar(){
     	$agenda = Agenda::all();
 
-        return view("teste", [ 'agenda' => $agenda ]);   	
+        return view("agenda", [ 'agenda' => $agenda ]);   	
     }
 
     function telaLista(){
@@ -34,7 +35,10 @@ class AgendaController extends Controller
                 $i++;
             }
         }
-        return view("teste", [ 'agenda' => $agenda ]);      
+        session([
+            'm' => 'Aqui listamos todas as suas consultas agendadas.'
+        ]);
+        return view("agenda", [ 'agenda' => $agenda ]);      
     }
 
     function telaListarProf($id){
@@ -49,7 +53,10 @@ class AgendaController extends Controller
                 $i++;
             }
         }
-        return view("teste", [ 'agenda' => $agenda ]);      
+        session([
+            'msg' => 'ATENÇÃO! Informamos que todos os horários em VERMELHO na agenda deste profissional estão ocupados.'
+        ]);
+        return view("agenda", [ 'agenda' => $agenda ]);      
     }
 
     function telaCadastro(){

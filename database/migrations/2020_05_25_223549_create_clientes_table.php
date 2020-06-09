@@ -20,6 +20,7 @@ class CreateClientesTable extends Migration
             $table->string('rg', 50);
             $table->string('nascimento', 50);
             $table->string('telefone', 50);
+            $table->string('email', 50);
             $table->timestamps();
         });
     }

@@ -34,4 +34,39 @@ class especialidadeController extends Controller
             return view("tela_cadastro", ["mensagem" => $msg]);
         }
     }
+
+    function telaAlteracao($id){
+        $especialidade = Especialidade::find($id);
+        
+        return view("tela_alteracao_especialidade", [ "espec" => $especialidade ]);
+    }
+
+    function alterar(Request $req, $id){
+        $especialidade = Especialidade::find($id);
+        $nome = $req->input('nome');
+        $descricao = $req->input('descricao');
+
+        
+        $especialidade->nome = $nome;
+        $especialidade->descricao = $descricao;
+
+        if($especialidade->save()){
+            $msg = "especialidade $nome adicionado com sucesso!";
+            return redirect()->route('listar_especialidade');
+        }else{
+            $msg = "especialidade não foi adicionado!";
+            return redirect()->route('listar_especialidade');
+        }
+    }
+
+    function delete($id){
+        $especialidade = Especialidade::find($id);
+
+        if($especialidade->delete()){
+            $msg = "Especialidade excluída com sucesso!";
+            return redirect()->route('listar_especialidade');
+        }else{
+            $msg = "Especialidade não foi excluído!";
+        }
+    }
 }

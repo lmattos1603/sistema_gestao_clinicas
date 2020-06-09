@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cpf' => ['required', 'string', 'min:13'],
+            'cpf' => ['required', 'string', 'min:11'],
             'password' => ['required', 'string', 'min:7']
         ]);
     }
@@ -73,6 +73,7 @@ class RegisterController extends Controller
             $cliente->rg = $data['rg'];
             $cliente->nascimento = $data['nascimento'];
             $cliente->telefone = $data['telefone'];
+            $cliente->email = $data['email'];
 
             $cliente->save();
 
