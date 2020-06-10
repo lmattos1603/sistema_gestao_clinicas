@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-            
+            @foreach($clientes as $cli)
             <tr>
                 <td>{{ $cli->nome }}</td>
                 <td>{{ $cli->cpf }}</td>
@@ -24,12 +24,12 @@
                 <td>{{ $cli->email }}</td>
                 <td>
                     <a href="{{ route('cadastro_convenio', ['id' => $cli->id]) }}" class="btn btn-info">Convênios</a>
-                    <a href="{{ route('listar_agenda_cliente', ['id' => $cli->id]) }}" class="btn btn-success">Minhas Consultas</a>
+                    <a href="{{ route('listar_agenda_cliente', ['id' => $cli->id]) }}" class="btn btn-success">Consultas</a>
                     <a class="btn btn-warning" href="{{route('cliente_alterar', ['id'=>$cli->id])}}"> Alterar</a>
                     <a href="#" onclick="exclui({{ $cli->id }})" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>
-            
+            @endforeach
             </tbody>
         </table>
 

@@ -20,9 +20,9 @@ class CreateAgendaTable extends Migration
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_profissional');
             $table->timestamps();
-
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            
             $table->foreign('id_profissional')->references('id')->on('profissionais');
+            $table->foreign('id_cliente')->references('id')->on('clientes');
         });
     }
 

@@ -20,11 +20,11 @@
   text-align: right;
 }
 .event {
-  border-top: 1px solid #b2dba1;
-  border-bottom: 1px solid #b2dba1;
-  background-image: linear-gradient(to bottom, #dff0d8 0px, #c8e5bc 100%);
+  border-top: 1px solid #dba1a1;
+  border-bottom: 1px solid #dba1a1;
+  background-image: linear-gradient(to bottom, #dba1a1 0px, #e5bcbc 100%);
   background-repeat: repeat-x;
-  color: #3c763d;
+  color: #763c3c;
   border-width: 1px;
   font-size: .75em;
   padding: 0 .75em;
@@ -35,7 +35,7 @@
   margin-bottom: 1px;
 }
 .event.begin {
-  border-left: 1px solid #b2dba1;
+  border-left: 1px solid #dba1a1;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
@@ -106,7 +106,15 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   
+@if(session()->has('msg'))
+  <div class="alert alert-warning">{{session('msg')}}</div>
+  {{ session()->forget(['msg']) }}
+@endif
 
+@if(session()->has('m'))
+  <div class="alert alert-success">{{session('m')}}</div>
+  {{ session()->forget(['m']) }}
+@endif
 
 <div class="container theme-showcase">
   <h1>Agenda</h1>
@@ -535,7 +543,7 @@ var data = [],
 
     $hf = date('H', strtotime($a->hora) + 60*60);
   @endphp
-  data.push({ title: '{{ $a->profissionais->nome }}: {{ $a->clientes->nome }}', start: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $h }}, {{ $i }}), end: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $hf }}, {{ $i }}), allDay: false, text: '{{  $a->profissionais->nome }}'  });
+  data.push({ title: 'Profissional: {{ $a->profissionais->nome }}/Cliente: {{ $a->clientes->nome }}', start: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $h }}, {{ $i }}), end: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $hf }}, {{ $i }}), allDay: false, text: '{{  $a->profissionais->nome }}'  });
   @endforeach
 
   @verbatim
