@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Cliente;
+use Auth;
 
-class ClienteLogin
+class Cliente
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class ClienteLogin
      */
     public function handle($request, Closure $next)
     {
-        if(! session()->has('email')){
-            return back();  
+        if(! Auth::user()->ehCliente()){
+            return back();
         }
-        
+
         return $next($request);
     }
 }
