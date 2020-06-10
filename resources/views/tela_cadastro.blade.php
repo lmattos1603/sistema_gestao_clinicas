@@ -33,11 +33,11 @@
                 </div>
                 <div class="form-group">
                     <h6>E-mail</h6>
-                    <input type="email" class="form-control" name="email" placeholder="Digite seu melhor e-mail">
+                    <input type="email" class="form-control" name="email" placeholder="Seu e-mail" required>
                 </div>
                 <div class="form-group">
                     <h6>Senha</h6>
-                    <input type="password" class="form-control" name="senha" placeholder="Digite uma senha">
+                    <input type="password" class="form-control" name="senha" placeholder="Sua senha" required>
                 </div>
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-dark">Cadastrar</button>

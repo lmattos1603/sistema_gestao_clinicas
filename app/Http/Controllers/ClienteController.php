@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Cliente;
 use App\Convenio;
+use App\User;
+use Auth;
 
 class ClienteController extends Controller
 {
@@ -12,40 +15,31 @@ class ClienteController extends Controller
         if(session()->has('email')){
             return redirect()->route('listar_cliente');
         }
-    	return view("login");
-    }
-
-    function logar(Request $req){
-        $cliente = Cliente::all();
-
-        $email = $req->input('email');
-        $senha = $req->input('senha');
-
-        $cliente = Cliente::where('email', '=', $email)->first();
-
-        if($cliente and $cliente->senha == $senha){
-            $variavel = [ 
-                "email" => $email,
-                "nome" => $cliente->nome 
-            ];
-            session($variavel);
-
-            return redirect()->route('listar_cliente');
-        }else{
-            return redirect()->route('login');
-        }
+    	return view('auth.login');
     }
 
     function logout(){
-        session()->forget("email");
+        Auth::logout();
 
         return redirect()->route('logar');
     }
 
-    function telaListar(){
-    	$cliente = Cliente::all();
+    function telaListarDados(){
+    	$clientes = Cliente::all();
 
-    	return view("tela_listar", [ "clientes" => $cliente ]);
+        foreach ($clientes as $cli) {
+            if(Auth::user()->id_cliente == $cli->id){
+                $cliente = $cli;
+            }
+        }
+
+    	return view("tela_listar", [ "cli" => $cliente]);
+    }
+
+    function telaListar(){
+        $cliente = Cliente::all();
+
+        return view("tela_lista_clientes", [ "clientes" => $cliente]);
     }
 
     function telaCadastro(){
@@ -68,15 +62,19 @@ class ClienteController extends Controller
         $cliente->nascimento = $nascimento;
         $cliente->telefone = $telefone;
         $cliente->email = $email;
-        $cliente->senha = $senha;
 
-        if($cliente->save()){
-            $msg = "Cliente $nome adicionado com sucesso!";
-            return redirect()->route('logar');
-        }else{
-            $msg = "Cliente não foi adicionado!";
-            return view("tela_cadastro", ["mensagem" => $msg]);
-        }
+        $cliente->save();
+
+        $user = new User();
+        $user->name = $nome;
+        $user->email = $email;
+        $user->password = Hash::make($senha);
+        $user->tipo = 0;
+        $user->id_cliente = $cliente->id;
+
+        $user->save();
+
+        return redirect()->route('listar_clientes');
     }
 
     function telaAdicionarConvenio($id){
@@ -96,5 +94,66 @@ class ClienteController extends Controller
         $cliente->save();
 
         return redirect()->route('cadastro_convenio', [ "id" => $cliente->id ]);
+    }
+
+    function telaAlteracao($id){
+        $cliente = Cliente::find($id);
+        $user = User::all();
+        foreach ($user as $us) {
+            if ($us->id_cliente == $id) {
+                $u = $us;
+            }
+        }
+
+        return view("tela_alteracao_cliente", ["c" => $cliente, "u" => $u]);
+    }
+
+    function alterar(Request $req, $id){
+        $cliente = Cliente::find($id);
+        $user = User::all();
+        $nome = $req->input('nome');
+        $cpf = $req->input('cpf');
+        $rg = $req->input('rg');
+        $nascimento = $req->input('nascimento');
+        $telefone = $req->input('telefone');
+        $email = $req->input('email');
+        $senha = $req->input('senha');
+
+       
+        $cliente->nome = $nome;
+        $cliente->cpf = $cpf;
+        $cliente->rg = $rg;
+        $cliente->nascimento = $nascimento;
+        $cliente->telefone = $telefone;
+        $cliente->email = $email;
+
+        $cliente->save();
+
+        foreach ($user as $u) {
+            if ($u->id_cliente == $id) {
+                $u->name = $nome;
+                $u->email = $email;
+                $u->save();                
+            }
+        }
+        
+        return redirect()->route('listar_cliente');
+    }
+
+    function delete($id){
+        $cliente = Cliente::find($id);
+        $user = User::all();
+        foreach ($user as $us) {
+            if ($us->id_cliente == $id) {
+                $us->delete();
+            }
+        }
+
+        if($cliente->delete()){
+            $msg = "Cliente excluído com sucesso!";
+            return redirect()->route('listar_clientes');
+        }else{
+            $msg = "Cliente não foi excluído!";
+        }
     }
 }
