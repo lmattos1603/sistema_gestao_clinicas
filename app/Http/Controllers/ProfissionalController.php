@@ -13,6 +13,11 @@ class ProfissionalController extends Controller
 
     	return view("tela_listar_profissional", [ "profissionais" => $profissional ]);
     }
+    function telaAlteracao($id){
+        $profissional = Profissional::find($id);
+        
+        return view("tela_alteracao_profissional", [ "prof" => $profissional ]);
+    }
 
     function telaCadastro(){
     	return view("tela_cadastro_profissional");
@@ -58,15 +63,8 @@ class ProfissionalController extends Controller
 
         return redirect()->route('cadastro_especialidade', [ "id" => $profissional->id ]);
     }
-
-    function telaAlteracao($id){
-        $profissional = Profissional::find($id);
-        
-        return view("tela_alteracao_profissional", [ "prof" => $profissional ]);
-    }
-    
     function alterar(Request $req, $id){
-        $profissional = Profissional::find($id);
+         $profissional = Profissional::find($id);
         $nome = $req->input('nome');
         $cpf = $req->input('cpf');
         $rg = $req->input('rg');
@@ -78,22 +76,28 @@ class ProfissionalController extends Controller
         $profissional->nascimento = $nascimento;
 
         if($profissional->save()){
-            $msg = "Profissional $nome adicionado com sucesso!";
+            $msg = "profissional $nome adicionado com sucesso!";
+            $_SESSION['adicionado'] = "Adicionado!";
              return redirect()->route('listar_profissional');
         }else{
-            $msg = "Profissional não foi adicionado!";
+            $msg = "profissional não foi adicionado!";
             return view("listar_profissional", ["mensagem" => $msg]);
         }
     }
-
     function delete($id){
         $profissional = Profissional::find($id);
 
         if($profissional->delete()){
-            $msg = "Profissional excluído com sucesso!";
+            $msg = "Profissional excluída com sucesso!";
             return redirect()->route('listar_profissional');
         }else{
             $msg = "Profissional não foi excluído!";
         }
+    }
+    function prof_especialidade($id){
+        /* $id = id do usuario */
+        $profissional = Profissional::find($id);
+        
+        return view('tela_lista_especialista', ["profissional" => $profissional]);
     }
 }

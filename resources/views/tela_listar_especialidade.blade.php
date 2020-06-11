@@ -7,6 +7,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Descrição</th>
                 <th scope="col">Operações</th>
+                <th scope="col">Profissionais</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,10 +15,10 @@
             <tr>
                 <td>{{ $esp->nome }}</td>
                 <td>{{ $esp->descricao }}</td>
-                <td>
-                    <a class="btn btn-warning" href="{{route('especialidade_alterar', ['id'=>$esp->id])}}"> Alterar</a>
-                    <a href="#" onclick="exclui({{ $esp->id }})" class="btn btn-danger">Excluir</a></td>
-                </td>
+                                <td>
+                    <a class="btn btn-warning" href="{{ route('especialidade_update', [ 'id' => $esp->id ]) }}">Alterar</a>
+              <a href="#" onclick="exclui({{ $esp->id }})" class="btn btn-danger">Excluir</a></td>
+              <td>   <a href="{{ route('especialidade_prof', ['id' => $esp->id]) }}" class="btn btn-info">Listar Profissionais</a></td>
             </tr>
             @endforeach
             </tbody>
@@ -25,7 +26,7 @@
 
         <script>
             function exclui(id){
-                if (confirm("Deseja excluir a Especialidade de id: "+id+"?")){
+                if (confirm("Deseja excluir a agenda de id: "+id+"?")){
                     location.href = "/especialidade/excluir/" + id;
                 }
             }

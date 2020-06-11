@@ -80,10 +80,20 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Sistema Para Gestão de Clínicas
+                <img src="http://localhost:8000/upload/imagens_especialidades/LOGO.png">
+                
+            </div>
+            
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-12 pt-5" style="background-color: #ede4e4;">
+                    <img src="http://localhost:8000/upload/imagens_especialidades/LOGO2.png">
                 </div>
+                <div class="col-md-1"></div>
             </div>
         </div>
+
     </body>
 </html>
