@@ -13,6 +13,6 @@ class Especialidade extends Model
     protected $primaryKey = 'id';
 
     function profissionais(){
-        return $this->belongsToMany('App\Profissionais', 'especialidades_profissionais', 'id_especialidade', 'id_profissional')->withPivot(['id'])->withTimestamps();
+        return $this->belongsToMany('App\Profissional', 'especialidades_profissionais', 'id_especialidade', 'id_profissional')->withPivot(['id'])->withTimestamps();
     }
 }

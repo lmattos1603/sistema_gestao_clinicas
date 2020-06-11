@@ -19,7 +19,8 @@
                 <td>{{ $ag->data }}</td>
                 <td>{{ $ag->hora }}</td>
                 <td><a href="{{ route('tela_alterar', ['id' => $ag->id]) }}" class="btn btn-warning">Alterar</a>
-                    <a href="#" onclick="exclui({{ $ag->id }})" class="btn btn-danger">Excluir</a></td>
+                    <a href="#" onclick="exclui({{ $ag->id }})" class="btn btn-danger">Excluir</a>
+                </td>
             </tr>
             @endforeach
             </tbody>
