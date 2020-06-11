@@ -6,7 +6,9 @@
                 <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Telefone</th>
+                @if(Auth::user()->ehProfissional())
                 <th scope="col">Operações</th>
+                @endif
                 </tr>
             </thead>
             <tbody>
@@ -14,10 +16,12 @@
             <tr>
                 <td>{{ $conv->nome }}</td>
                 <td>{{ $conv->telefone }}</td>
+                @if(Auth::user()->ehProfissional())
                 <td>
-                    <a class="btn btn-warning" href="{{route('convenio_alterar', ['id'=>$conv->id])}}"> Alterar</a>
-                    <a href="#" onclick="exclui({{ $conv->id }})" class="btn btn-danger">Excluir</a></td>
+                    <a class="btn btn-warning" href="{{ route('convenio_update', [ 'id' => $conv->id ]) }}">Alterar</a>
+                <a href="#" onclick="exclui({{ $conv->id }})" class="btn btn-danger">Excluir</a>
                 </td>
+                @endif
             </tr>
             @endforeach
             </tbody>
@@ -25,7 +29,7 @@
 
         <script>
             function exclui(id){
-                if (confirm("Deseja excluir o Convênio de id: "+id+"?")){
+                if (confirm("Deseja excluir a agenda de id: "+id+"?")){
                     location.href = "/convenio/excluir/" + id;
                 }
             }

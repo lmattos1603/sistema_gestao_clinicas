@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <h6>Hora</h6>
-                    <input type="time" class="form-control" name="hora" placeholder="Telefone para Contato" required>
+                    <input type="time" class="form-control" name="hora" required>
                 </div>
             </div>
             <div class="col-md-6 ">

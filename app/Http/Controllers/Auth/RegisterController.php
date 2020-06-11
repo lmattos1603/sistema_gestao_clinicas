@@ -73,7 +73,6 @@ class RegisterController extends Controller
             $cliente->rg = $data['rg'];
             $cliente->nascimento = $data['nascimento'];
             $cliente->telefone = $data['telefone'];
-            $cliente->email = $data['email'];
 
             $cliente->save();
 
