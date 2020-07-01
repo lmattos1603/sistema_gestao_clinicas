@@ -4,6 +4,7 @@
         <title>Gestão de Clínicas</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        @yield('scripts')
     </head>
     <body style=" background-image: url(https://medicalbox.com.br/blog/wp-content/uploads/2018/01/como-implementar-um-software-de-gestao-em-sua-clinica.jpeg);">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -78,7 +79,17 @@
                       @endif
                     </div>
                 </li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if(Auth::user()->ehProfissional())
+                      <a class="dropdown-item" href="{{ route('dashboard') }}">Agendamentos Diários</a>
+                      <a class="dropdown-item" href="{{ route('dashboard_mensal') }}">Agendamentos mensais</a>
+                      @endif
+                    </div>
+                </li>
                 <li class="nav-item">
                    <a class="nav-link disabled ml-5">Olá, {{ Auth::user()->name }}</a>
                 </li>

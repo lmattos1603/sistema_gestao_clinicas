@@ -72,6 +72,10 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/agenda/{id}/alterar', 'AgendaController@alterar')->name('agenda_alterar');
 
 		Route::get('/agenda/excluir/{id}', 'AgendaController@delete');
+
+		Route::get('/dashboard/dia', 'ClienteController@dashboard')->name('dashboard');
+
+		Route::get('/dashboard/mes', 'ClienteController@dashboardMensal')->name('dashboard_mensal');
 	});
 
 	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
