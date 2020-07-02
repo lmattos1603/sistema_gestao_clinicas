@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Cliente;
+use App\Agenda;
 use App\Convenio;
 use App\User;
 use Auth;
@@ -145,4 +146,22 @@ class ClienteController extends Controller
             $msg = "Cliente não foi excluído!";
         }
     }
+    function dashboard(){
+    $agendamento_dia = Agenda::selectRaw("CONCAT(day(data), '/', month(data), '/', year(data)) as data, date(data), ROUND(COUNT(id), 2) as quantidade")->groupByRaw('data')->get();
+
+        $usuarios_online = User::all()->count();
+
+        return view('dashboard', ['agendamento_dia' => $agendamento_dia, 
+            'usuarios_online' => $usuarios_online]);
+    }
+
+    function dashboardMensal(){
+    $agendamento_mes =  Agenda::selectRaw('month(data) as month, ROUND(COUNT(id), 2) as quantidade')->groupByRaw('month(data)')->get();
+
+        $usuarios_online = User::all()->count();
+
+        return view('dashboardMensal', ['agendamento_mes' => $agendamento_mes, 
+            'usuarios_online' => $usuarios_online]);
+    }
+
 }
