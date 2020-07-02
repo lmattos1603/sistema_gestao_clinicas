@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEspecialidadesTable extends Migration
+class AlteracaoAgenda extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateEspecialidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('especialidades', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome', 50);
-            $table->string('descricao', 200);
-            $table->string('imagem', 255);
-            $table->timestamps();
+        Schema::table('agenda', function(Blueprint $table){
+            $table->double('valor_consulta');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateEspecialidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('especialidades');
+        Schema::table('agenda', function(Blueprint $table){
+            $table->dropColumn('valor_consulta');
+        });
     }
 }

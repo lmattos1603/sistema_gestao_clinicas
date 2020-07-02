@@ -12,6 +12,12 @@ class ConvenioController extends Controller
 
     	return view("tela_listar_convenio", [ "convenios" => $convenio ]);
     }
+        
+    function telaAlteracao($id){
+        $convenio = Convenio::find($id);
+        
+        return view("tela_alteracao_convenio", [ "c" => $convenio ]);
+    }
 
     function telaCadastro(){
     	return view("tela_cadastro_convenio");
@@ -34,13 +40,6 @@ class ConvenioController extends Controller
             return view("tela_cadastro", ["mensagem" => $msg]);
         }
     }
-
-    function telaAlteracao($id){
-        $convenio = Convenio::find($id);
-        
-        return view("tela_alteracao_convenio", [ "c" => $convenio ]);
-    }
-
     function alterar(Request $req, $id){
         $convenio = Convenio::find($id);
         $nome = $req->input('nome');
@@ -51,14 +50,14 @@ class ConvenioController extends Controller
         $convenio->telefone = $telefone;
 
         if($convenio->save()){
-            $msg = "Convenio $nome adicionado com sucesso!";
-            return redirect()->route('listar_convenio');
+            $msg = "convenio $nome adicionado com sucesso!";
+            $_SESSION['adicionado'] = "Adicionado!";
+            return view("tela_listar_convenio", ["mensagem" => $msg]);
         }else{
             $msg = "convenio não foi adicionado!";
             return view("tela_cadastro", ["mensagem" => $msg]);
         }
     }
-
     function delete($id){
         $convenio = Convenio::find($id);
 

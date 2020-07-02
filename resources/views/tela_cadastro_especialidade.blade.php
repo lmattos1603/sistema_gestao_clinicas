@@ -9,7 +9,7 @@
                     </nav>
                 </div>
             </div>
-            <form method="post" action="{{ route('especialidade_add') }}">
+            <form method="post" action="{{ route('especialidade_add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mt-5">
                     <h6>Nome</h6>
@@ -19,6 +19,7 @@
                     <h6>Descrição</h6>
                     <input type="text" class="form-control" name="descricao" required>
                 </div>
+                <input type="file" name="upload" class="form-control">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-dark">Cadastrar</button>
                 </div>
