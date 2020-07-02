@@ -72,12 +72,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/agenda/{id}/alterar', 'AgendaController@alterar')->name('agenda_alterar');
 
 		Route::get('/agenda/excluir/{id}', 'AgendaController@delete');
-	});
 
-	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
-
-	/*Cliente*/
-	Route::get('/cliente/listar', 'ClienteController@telaListarDados')->name('listar_cliente');
 
 	/*Convenio*/
 	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
