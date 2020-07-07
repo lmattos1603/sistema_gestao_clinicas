@@ -73,6 +73,15 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::get('/agenda/excluir/{id}', 'AgendaController@delete');
 
+		Route::get('/dashboard/dia', 'ClienteController@dashboard')->name('dashboard');
+
+		Route::get('/dashboard/mes', 'ClienteController@dashboardMensal')->name('dashboard_mensal');
+	});
+
+	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
+
+	/*Cliente*/
+	Route::get('/cliente/listar', 'ClienteController@telaListarDados')->name('listar_cliente');
 
 	/*Convenio*/
 	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
@@ -93,8 +102,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/agenda/{id}/listar', 'AgendaController@telaListarProf')->name('listar_agenda_prof');
 
 	Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
-
-	Route::post('/agenda/confere', 'AgendaController@telaAgendaAdd')->name('tela_agenda_add');
 
 	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
 

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Agenda;
 use App\Cliente;
 use App\Profissional;
 use App\Especialidade;
 use App\User;
-use App\Cacapay;
 
 class AgendaController extends Controller
 {
@@ -68,55 +66,26 @@ class AgendaController extends Controller
     	return view("tela_cadastro_agenda", [ 'clientes' => $cliente, 'profissionais' => $profissional ]);
     }
 
-    function telaAgendaAdd(Request $req){
-        $id_cliente = $req->input('id_cliente');
-        $id_profissional = $req->input('id_profissional');
-        $data = $req->input('data');
-        $hora = $req->input('hora');
-        $profissional = Profissional::find($id_profissional);
-        $cliente = Cliente::find($id_cliente);
-
-        return view('tela_agenda_add', [ 'cliente' => $cliente, 'profissional' => $profissional, 'data' => $data, 'hora'=> $hora ]);
-        
-    }
-
     function agendaAdd(Request $req){
         $id_cliente = $req->input('id_cliente');
         $id_profissional = $req->input('id_profissional');
         $data = $req->input('data');
         $hora = $req->input('hora');
-        $valor = $req->input('valor');
-        $cliente = Cliente::find($id_cliente);
 
         $agenda = new Agenda();
         $agenda->data = $data;
         $agenda->hora = $hora;
         $agenda->id_cliente = $id_cliente;
         $agenda->id_profissional = $id_profissional;
-        $agenda->valor_consulta = $valor;
-
-        $cacapay = Cacapay::find(1);
-
-        $reqCacapay = Http::post($cacapay->link, [
-                "token" => $cacapay->token,
-                "cpf" => $cliente->cpf,
-                "valor" => $valor
-            ]);
-
-        if($reqCacapay->status() == 201){
-            if($agenda->save()){
+        
+        if($agenda->save()){
 
             $msg = "Agenda adicionada com sucesso!";
             return redirect()->route('listar_agenda');
         
-            }else{
-                $msg = "Agenda não foi adicionada!";
-            }
-        }elseif($reqCacapay->status() == 401){
-            echo "Pagamento Negado!";
-        }elseif($reqCacapay->status() == 402 || $reqCacapay->status() == 403 || $reqCacapay->status() == 404){
-            echo "Erro ao solicitar pagamento, tente novamente!";
-        }     
+        }else{
+            $msg = "Agenda não foi adicionada!";
+        }
     }
 
     function telaAlterar($id){

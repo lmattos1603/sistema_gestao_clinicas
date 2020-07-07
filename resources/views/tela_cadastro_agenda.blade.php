@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-dark bg-dark">
-                        <h4 style="color: white;">Cadastrar Consulta</h4>
+                        <h4 style="color: white;">Cadastrar Agenda</h4>
                     </nav>
                 </div>
             </div>
-            <form method="post" action="{{ route('tela_agenda_add') }}">
+            <form method="post" action="{{ route('agenda_add') }}">
                 @csrf
                 <div class="form-group mt-5">
                 <h6>Cliente</h6>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="col-md-6 ">
-                <button type="submit" class="btn btn-dark">Solicitar Consulta</button>
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
             </div>
             </form>
         </div>
