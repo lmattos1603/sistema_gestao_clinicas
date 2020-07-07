@@ -543,7 +543,7 @@ var data = [],
 
     $hf = date('H', strtotime($a->hora) + 60*60);
   @endphp
-  data.push({ title: 'Profissional: {{ $a->profissionais->nome }}|Cliente: {{ $a->clientes->nome }}|Valor da Consulta: R${{$a->valor_consulta}}', start: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $h }}, {{ $i }}), end: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $hf }}, {{ $i }}), allDay: false, text: '{{  $a->profissionais->nome }}'  });
+  data.push({ title: 'Profissional: {{ $a->profissionais->nome }}/Cliente: {{ $a->clientes->nome }}', start: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $h }}, {{ $i }}), end: new Date({{ $y }}, {{ $m }}, {{ $d }}, {{ $hf }}, {{ $i }}), allDay: false, text: '{{  $a->profissionais->nome }}'  });
   @endforeach
 
   @verbatim

@@ -85,6 +85,15 @@ Route::middleware(['auth'])->group(function () {
 =======
 >>>>>>> 00c7db2a34cefd5a462c3fb38cf21d6271d33c01
 
+		Route::get('/dashboard/dia', 'ClienteController@dashboard')->name('dashboard');
+
+		Route::get('/dashboard/mes', 'ClienteController@dashboardMensal')->name('dashboard_mensal');
+	});
+
+	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
+
+	/*Cliente*/
+	Route::get('/cliente/listar', 'ClienteController@telaListarDados')->name('listar_cliente');
 
 	/*Convenio*/
 	Route::get('/convenio/listar', 'ConvenioController@telaListar')->name('listar_convenio');
@@ -105,8 +114,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/agenda/{id}/listar', 'AgendaController@telaListarProf')->name('listar_agenda_prof');
 
 	Route::get('/agenda/cadastro/{id}/especialista', 'AgendaController@telaCadastroEsp')->name('agenda_cadastro_especialista');
-
-	Route::post('/agenda/confere', 'AgendaController@telaAgendaAdd')->name('tela_agenda_add');
 
 	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
 
