@@ -10,6 +10,7 @@ use App\Profissional;
 use App\Especialidade;
 use App\User;
 use App\Cacapay;
+use Auth;
 
 class AgendaController extends Controller
 {
@@ -158,5 +159,12 @@ class AgendaController extends Controller
         }else{
             $msg = "Agenda não foi excluído!";
         }
+    }
+
+    function telaCadastroEsp($id){
+        $profissional = Profissional::find($id);
+        $cliente = Cliente::find(Auth::user()->id_cliente);
+
+        return view("tela_cadastro_consulta", [ 'clientes' => $cliente, 'profissionais' => $profissional ]);
     }
 }
