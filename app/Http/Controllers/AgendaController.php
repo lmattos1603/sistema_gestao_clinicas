@@ -8,6 +8,8 @@ use App\Cliente;
 use App\Profissional;
 use App\Especialidade;
 use App\User;
+use App\Cacapay;
+use Auth;
 
 class AgendaController extends Controller
 {
