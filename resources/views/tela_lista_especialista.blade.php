@@ -7,6 +7,7 @@
            <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Valor da Consulta</th>
             <th>Operações</th>
         </tr>
     </thead>
@@ -16,7 +17,11 @@
             
             <td>{{ $p->pivot->id }}</td>
             <td>{{ $p->nome }}</td>
-            <td><a href="{{ route('listar_agenda_prof', ['id' => $p->id]) }}" class="btn btn-success">Agenda</a></td>
+            <td>R${{ $p->valor_consulta }}</td>
+            <td>
+                <a href="{{ route('listar_agenda_prof', ['id' => $p->id]) }}" class="btn btn-info">Agenda</a>
+                <a href="{{ route ('agenda_cadastro_especialista', ['id' => $p->id]) }}" class="btn btn-success">Agendar consulta</a>
+            </td>
         </tr>
         @endforeach
     </tbody>

@@ -130,6 +130,7 @@ class ClienteController extends Controller
         $user->save();
         return redirect()->route('listar_clientes');
     }
+
     function delete($id){
         $cliente = Cliente::find($id);
         $user = User::all();
@@ -146,6 +147,10 @@ class ClienteController extends Controller
             $msg = "Cliente não foi excluído!";
         }
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 00c7db2a34cefd5a462c3fb38cf21d6271d33c01
     function dashboard(){
     $agendamento_dia = Agenda::selectRaw("CONCAT(day(data), '/', month(data), '/', year(data)) as data, date(data), ROUND(COUNT(id), 2) as quantidade")->groupByRaw('data')->get();
 
@@ -163,5 +168,8 @@ class ClienteController extends Controller
         return view('dashboardMensal', ['agendamento_mes' => $agendamento_mes, 
             'usuarios_online' => $usuarios_online]);
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 00c7db2a34cefd5a462c3fb38cf21d6271d33c01
 }
