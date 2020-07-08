@@ -72,6 +72,22 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/agenda/{id}/alterar', 'AgendaController@alterar')->name('agenda_alterar');
 
 		Route::get('/agenda/excluir/{id}', 'AgendaController@delete');
+<<<<<<< HEAD
+
+		Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
+		
+		Route::get('/dashboard/dia', 'ClienteController@dashboard')->name('dashboard');
+
+		Route::get('/dashboard/mes', 'ClienteController@dashboardMensal')->name('dashboard_mensal');
+	});
+
+	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
+=======
+>>>>>>> 00c7db2a34cefd5a462c3fb38cf21d6271d33c01
+
+		Route::get('/dashboard/dia', 'ClienteController@dashboard')->name('dashboard');
+
+		Route::get('/dashboard/mes', 'ClienteController@dashboardMensal')->name('dashboard_mensal');
 	});
 
 	Route::get('/especialidade/profissional/{id}', 'EspecialidadeController@especialidade_prof')->name('especialidade_prof');
@@ -97,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/agenda/{id}/listar', 'AgendaController@telaListarProf')->name('listar_agenda_prof');
 
-	Route::get('/agenda/cadastro', 'AgendaController@telaCadastro')->name('agenda_cadastro');
+	Route::get('/agenda/cadastro/{id}/especialista', 'AgendaController@telaCadastroEsp')->name('agenda_cadastro_especialista');
 
 	Route::post('/agenda/adicionar', 'AgendaController@agendaAdd')->name('agenda_add');
 

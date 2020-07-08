@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171778077-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-171778077-1');
+        </script>
+
         <title>Gestão de Clínicas</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        @yield('scripts')
     </head>
     <body style=" background-image: url(https://medicalbox.com.br/blog/wp-content/uploads/2018/01/como-implementar-um-software-de-gestao-em-sua-clinica.jpeg);">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-        <img class="mr-3" src="http://localhost:8000/upload/imagens_especialidades/LOGO2.png" width="150">
         <a class="navbar-brand" href="{{ route('home') }}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
@@ -65,7 +74,7 @@
                        <a class="dropdown-item" href="{{ route('listar_menu_especialidade') }}">Menu Especialidades</a>
                     </div>
                   </li>
-
+                @if(Auth::user()->ehProfissional())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Agendas
@@ -73,12 +82,21 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{{ route('agenda_cadastro') }}">Cadastrar Consulta</a>
                       <a class="dropdown-item" href="{{ route('listar_agenda') }}">Calendário de Consultas</a>
-                      @if(Auth::user()->ehProfissional())
                       <a class="dropdown-item" href="{{ route('lista_agenda') }}">Listar Agendas</a>
-                      @endif
                     </div>
                 </li>
-
+                @endif
+                @if(Auth::user()->ehProfissional())
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ route('dashboard') }}">Agendamentos Diários</a>
+                      <a class="dropdown-item" href="{{ route('dashboard_mensal') }}">Agendamentos mensais</a>
+                    </div>
+                </li>
+                @endif
                 <li class="nav-item">
                    <a class="nav-link disabled ml-5">Olá, {{ Auth::user()->name }}</a>
                 </li>
